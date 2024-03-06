@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 
 interface Props {
     params: {
@@ -5,10 +6,19 @@ interface Props {
     }
 }
 
+const categories: String[] = ['men','women'];
+
 export default function CategoryIdPage({params}: Props) {
+
+    const {id} = params;
+
+    if(!categories.includes(id)) {
+        notFound();
+    }
+
     return (
         <div>
-            <h1>Hello Category Id Page {params.id}</h1>
+            <h1>Hello Category Id Page {id}</h1>
         </div>
     );
 }
