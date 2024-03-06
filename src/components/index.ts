@@ -4,3 +4,4 @@ export * from './ui/title/Title';
 export * from './products/product-grid/ProductsGrid';
 export * from './products/product-grid/ProductGridItem';
 export * from './ui/sidebar/Sidebar';
+export * from './ui/sidebar/SidebarLinkItem';
