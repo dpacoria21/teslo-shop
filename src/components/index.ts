@@ -5,3 +5,7 @@ export * from './products/product-grid/ProductsGrid';
 export * from './products/product-grid/ProductGridItem';
 export * from './ui/sidebar/Sidebar';
 export * from './ui/sidebar/SidebarLinkItem';
+export * from './product/size-selector/SizeSelector';
+export * from './product/quantity/QuantitySelector';
+export * from './product/slideshow/ProductSlideshow';
+export * from './product/slideshow/ProductMobileSlideshow';
