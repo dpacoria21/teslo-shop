@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { CartProduct } from '@/interfaces';
 import { IoAddCircleOutline, IoRemoveCircleOutline } from 'react-icons/io5';
 
 interface Props {
@@ -9,10 +9,10 @@ interface Props {
 
 export const QuantitySelector = ({quantity, onQuantityChanged}: Props) => {
 
-
     const onValueChange = (value: number) => {
-        if(quantity === 0 && value===-1) return;
+        if(quantity === 1 && value===-1) return;
         onQuantityChanged( quantity+value );
+        
     };
 
     return (
