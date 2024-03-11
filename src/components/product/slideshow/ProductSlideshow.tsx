@@ -30,7 +30,7 @@ export const ProductSlideshow = ({images, title, className = ''}: Props) => {
                 style={{
                     '--swiper-navigation-color': '#fff',
                     '--swiper-pagination-color': '#fff',
-                }}
+                } as {}}
                 spaceBetween={10}
                 navigation={true}
                 autoplay={{

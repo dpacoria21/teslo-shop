@@ -1,12 +1,22 @@
+export const revalidate = 60;
+
 import { getPaginatedProductsWithImages } from '@/actions';
-import { ProductsGrid, Title } from '@/components';
-import { initialData } from '@/seed/seed';
+import { Pagination, ProductsGrid, Title } from '@/components';
+import { redirect } from 'next/navigation';
 
-const products = initialData.products;
+interface Props {
+    searchParams: {
+        page?: string,
+    }
+}
 
-export default async function Home() {
+export default async function Home({searchParams}: Props) {
+
+    const page = searchParams.page ? +searchParams.page : 1;
     
-    const productsServer = await getPaginatedProductsWithImages();
+    const {products, currentPage, totalPages} = await getPaginatedProductsWithImages({page});
+
+    if(products.length===0) redirect('/');
 
     return (
         <>
@@ -19,6 +29,9 @@ export default async function Home() {
             <ProductsGrid 
                 products={products}
             />
+
+            <Pagination totalPages={totalPages}/>
+            <div className='mb-8'/>
         </>
     );
 }
