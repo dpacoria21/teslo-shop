@@ -1,12 +1,19 @@
 'use client';
+
 import { IoCloseOutline, IoLogInOutline, IoLogOutOutline, IoPeopleOutline, IoPersonOutline, IoSearchOutline, IoShirtOutline, IoTicketOutline } from 'react-icons/io5';
 import { SidebarLinkItem } from './SidebarLinkItem';
 import { useUIStore } from '@/store';
 import clsx from 'clsx';
+import { logout } from '@/actions';
+import { useSession } from 'next-auth/react';
 
 export const Sidebar = () => {
 
     const {isSideMenuOpen, closeSideMenu} = useUIStore(state => state); 
+
+    const {data: session} =  useSession();
+    const isAuthenticated = !!session?.user;
+    console.log(session);
 
     return (
         <div>
@@ -67,7 +74,7 @@ export const Sidebar = () => {
                 {/* Menu */}
 
                 <SidebarLinkItem 
-                    path='/'
+                    path='/profile'
                     icon={<IoPersonOutline size={30}/>}
                     label='Perfil'
                 />
@@ -76,35 +83,58 @@ export const Sidebar = () => {
                     icon={<IoTicketOutline size={30}/>}
                     label='Ordenes'
                 />
-                <SidebarLinkItem 
-                    path='/'
-                    icon={<IoLogInOutline size={30}/>}
-                    label='Ingresar'
-                />
-                <SidebarLinkItem 
-                    path='/'
-                    icon={<IoLogOutOutline size={30}/>}
-                    label='Salir'
-                />
+
+                {
+                    isAuthenticated && (
+                        <div onClick={() => logout()}>
+                            <SidebarLinkItem 
+                                path='/'
+                                icon={<IoLogOutOutline size={30}/>}
+                                label='Salir'
+                            />
+                        </div>
+                    )
+                }
+
+                {
+                    !isAuthenticated && (
+                        <SidebarLinkItem 
+                            path='/auth/login'
+                            icon={<IoLogInOutline size={30}/>}
+                            label='Ingresar'
+                        />
+                    )
+                }
+
+                
+                
 
                 {/* Line Separator */}
-                <div className='w-full h-px bg-gray-200 my-10' />
 
-                <SidebarLinkItem 
-                    path='/'
-                    icon={<IoShirtOutline size={30}/>}
-                    label='Productos'
-                />
-                <SidebarLinkItem 
-                    path='/'
-                    icon={<IoTicketOutline size={30}/>}
-                    label='Ordenes'
-                />
-                <SidebarLinkItem 
-                    path='/'
-                    icon={<IoPeopleOutline size={30}/>}
-                    label='Usuarios'
-                />
+                {
+                    isAuthenticated && session.user.role==='admin' && (
+                        <>
+                        
+                            <div className='w-full h-px bg-gray-200 my-10' />
+
+                            <SidebarLinkItem 
+                                path='/'
+                                icon={<IoShirtOutline size={30}/>}
+                                label='Productos'
+                            />
+                            <SidebarLinkItem 
+                                path='/'
+                                icon={<IoTicketOutline size={30}/>}
+                                label='Ordenes'
+                            />
+                            <SidebarLinkItem 
+                                path='/'
+                                icon={<IoPeopleOutline size={30}/>}
+                                label='Usuarios'
+                            />
+                        </>
+                    )
+                }
 
                 
 
