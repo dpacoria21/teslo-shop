@@ -1,3 +1,4 @@
+export { getCountries } from './country/get-countries';
 export {authenticate} from './auth/login';
 export {logout} from './auth/logout';
 export {getPaginatedProductsWithImages} from './product/product-pagination';

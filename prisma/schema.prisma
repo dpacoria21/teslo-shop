@@ -55,6 +55,11 @@ model Product {
     @@index([gender])
 }
 
+model Country {
+    id String  @id @unique
+    name String
+}
+
 model ProductImage {
     id        Int     @id @default(autoincrement())
     url       String
