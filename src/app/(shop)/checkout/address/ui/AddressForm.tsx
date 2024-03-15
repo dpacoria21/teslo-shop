@@ -1,8 +1,14 @@
 'use client';
 
-import { Country } from '@/interfaces';
-import clsx from 'clsx';
+import { deleteUserAddress, setUserAddress } from '@/actions';
+import { Address, Country } from '@/interfaces';
+import { useAddressStore } from '@/store';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+
+import clsx from 'clsx';
 
 interface FormInputs {
     firstName: string,
@@ -17,24 +23,54 @@ interface FormInputs {
 }
 
 interface Props {
-    countries: Country[]
+    countries: Country[],
+    userStoredAddress?: Address | null,
 }
 
-export const AddressForm = ({countries}: Props) => {
+export const AddressForm = ({countries, userStoredAddress = {} as Address}: Props) => {
+
+    
+    const router = useRouter();
+
+    const {data: session} = useSession({
+        required: true
+    });
 
     const {
         handleSubmit,
         register,
-        watch,
+        reset,
         formState: {errors, isValid},
     } = useForm<FormInputs>({
         defaultValues: {
-            //Leer de la base de datos
+            ...(userStoredAddress as any),
+            rememberAddress: false,
         }
     });
+    const setAddress = useAddressStore(state => state.setAddress);
+    const address = useAddressStore(state => state.address);
+    
+    useEffect(() => {
+        if(address.firstName) {
+            reset(address);
+        }
 
+    }, [address]);
+    
     const onSubmit = async(data: FormInputs) => {
         console.log({data});
+        setAddress(data);
+        const {rememberAddress, ...restAddress} = data;
+
+
+        if(rememberAddress) {
+            await setUserAddress(restAddress, session?.user.id!);
+        }else  {
+            await deleteUserAddress(session?.user.id!);
+        }
+
+        router.push('/checkout');
+
     };
 
     return (
@@ -153,6 +189,7 @@ export const AddressForm = ({countries}: Props) => {
                             </svg>
                         </div>
                     </label>
+                    Recordar direccion
                 </div>
 
                 <button

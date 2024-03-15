@@ -13,7 +13,6 @@ export const Sidebar = () => {
 
     const {data: session} =  useSession();
     const isAuthenticated = !!session?.user;
-    console.log(session);
 
     return (
         <div>
