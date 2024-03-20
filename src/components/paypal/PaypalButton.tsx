@@ -18,10 +18,12 @@ export const PaypalButton = ({amount, orderId}: Props) => {
     const createOrder = async(data: CreateOrderData, actions: CreateOrderActions): Promise<string> => {
         
         const transactionId = await actions.order.create({
+            intent: 'CAPTURE',
             purchase_units: [
                 {
                     invoice_id: orderId,
                     amount: {
+                        currency_code: 'USD',
                         value: `${roundedAmount}`,
                     }
                 }
@@ -57,9 +59,11 @@ export const PaypalButton = ({amount, orderId}: Props) => {
     }
 
     return (
-        <PayPalButtons 
-            createOrder={createOrder}
-            onApprove={onApprove}
-        />
+        <div className='relative z-0'>
+            <PayPalButtons 
+                createOrder={createOrder}
+                onApprove={onApprove}
+            />
+        </div>
     );
 };

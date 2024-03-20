@@ -9,6 +9,11 @@ interface Props {
 }
 
 export const StockLabel = ({slug}: Props) => {
+    const getStock = async() => {
+        const stock = await getStockBySlug(slug); 
+        setStock(stock);
+        setIsLoading(false);
+    };
 
     // const product = getProductBySlug(slug)
     const [stock, setStock] = useState(0);
@@ -17,13 +22,9 @@ export const StockLabel = ({slug}: Props) => {
 
     useEffect(() => {
         getStock();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const getStock = async() => {
-        const stock = await getStockBySlug(slug); 
-        setStock(stock);
-        setIsLoading(false);
-    };
 
     return (
         <>

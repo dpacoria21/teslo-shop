@@ -1,3 +1,4 @@
+export { createUpdateProduct } from './product/create-update-product';
 export { getCountries } from './country/get-countries';
 export {authenticate} from './auth/login';
 export {logout} from './auth/logout';
@@ -13,3 +14,7 @@ export {getOrderById} from './order/get-order-by-id';
 export {getOrdersByUser} from './order/get-orders-by-user';
 export {setTransactionId} from './payments/set-transaction-id';
 export {paypalCheckPayment} from './payments/paypal-check-payment';
+export {getPaginatedOrders} from './order/get-paginated-orders';
+export {getPaginatedUsers} from './users/get-paginated-users';
+export {changeUserRole} from './users/change-user-role';
+export {deleteProductImage} from './product/delete-product-image';

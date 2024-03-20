@@ -20,3 +20,5 @@ export * from './providers/Providers';
 export * from './paypal/PaypalButton';
 
 export * from './orders/OrderStatus';
+
+export * from './product/product-image/ProductImage';

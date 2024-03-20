@@ -78,7 +78,7 @@ export const Sidebar = () => {
                     label='Perfil'
                 />
                 <SidebarLinkItem 
-                    path='/'
+                    path='/orders'
                     icon={<IoTicketOutline size={30}/>}
                     label='Ordenes'
                 />
@@ -117,17 +117,17 @@ export const Sidebar = () => {
                             <div className='w-full h-px bg-gray-200 my-10' />
 
                             <SidebarLinkItem 
-                                path='/'
+                                path='/admin/products'
                                 icon={<IoShirtOutline size={30}/>}
                                 label='Productos'
                             />
                             <SidebarLinkItem 
-                                path='/'
+                                path='/admin/orders'
                                 icon={<IoTicketOutline size={30}/>}
                                 label='Ordenes'
                             />
                             <SidebarLinkItem 
-                                path='/'
+                                path='/admin/users'
                                 icon={<IoPeopleOutline size={30}/>}
                                 label='Usuarios'
                             />
